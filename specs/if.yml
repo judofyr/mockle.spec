@@ -54,10 +54,11 @@ tests:
     expected: ''
 
   - name: Undefined
-    desc: Undefined values are false.
+    desc: Undefined values fails
     data: { }
     template: '@if(val)yes@endif'
     expected: ''
+    error: [1, 4]
 
   - name: Else
     desc: Else-clauses are rendered if the condition is falsy.
@@ -66,10 +67,10 @@ tests:
     expected: 'no'
   
   - name: Elseif
-    data: { b: true }
+    data: { a: false, b: true, c: false }
     template: |
       @if(a)a@elseif(b)b@else()c@endif
       @if(b)b@elseif(a)a@else()c@endif
       @if(a)a@elseif(c)c@else()b@endif
-    expected: "bbb"
+    expected: "bbb\n"
 

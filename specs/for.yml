@@ -1,0 +1,26 @@
+tests:
+  - name: Loop over array
+    desc: '@for should loop over the values'
+    data: { var: [1, 2, 3] }
+    template: '@for(a in var)@a@endfor'
+    expected: '123'
+  - name: Loop over string
+    desc: The loop should run once for non-arrays.
+    data: { var: "Hello" }
+    template: '@for(a in var)@a@endfor'
+    expected: 'Hello'
+  - name: Loop over falsy
+    desc: The loop should not be invoked at all for falsy values.
+    data: { var: false }
+    template: '@for(a in var)@a@endfor'
+    expected: ''
+  - name: Loop with else
+    desc: Else-branch are not invoked when the loop runs.
+    data: { var: [1, 2, 3] }
+    template: '@for(a in var)@a@else()nope@endfor'
+    expected: '123'
+  - name: Empty loop with else
+    data: { var: false }
+    template: '@for(a in var)@a@else()nope@endfor'
+    expected: 'nope'
+
